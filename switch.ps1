@@ -64,6 +64,12 @@ if($prod){
 	  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT'
 	  | Set-Content c:/php/php.ini;
 
+	Copy-Item c:/Apache/conf/httpd.conf c:/Apache/conf/httpd.conf.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).conf;
+
+	(Get-Content c:/Apache/conf/httpd.conf)
+	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel emerg'
+	  | Set-Content c:/Apache/conf/httpd.conf;
+
 } else {
 	<# Development/Test settings #>
 
@@ -78,6 +84,11 @@ if($prod){
 	  -replace '^\s*;?\s*error_reporting\s*=\s*E_ALL & ~E_DEPRECATED & ~E_STRICT', 'error_reporting = E_ALL'
 	  | Set-Content c:/php/php.ini;
 
+	Copy-Item c:/Apache/conf/httpd.conf c:/Apache/conf/httpd.conf.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).conf;
+
+	(Get-Content c:/Apache/conf/httpd.conf)
+	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel debug'
+	  | Set-Content c:/Apache/conf/httpd.conf;
 }
 
 restart_httpd
