@@ -61,34 +61,30 @@ if($prod){
 	  -replace '^display_errors =.*', 'display_errors = Off'
 	  -replace '^display_startup_errors =.*', 'display_startup_errors = Off'
 	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On'
-	  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT'
-	  | Set-Content c:/php/php.ini;
+	  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT' | Set-Content c:/php/php.ini;
 
 	Copy-Item c:/Apache/conf/httpd.conf c:/Apache/conf/httpd.conf.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).conf;
 
 	(Get-Content c:/Apache/conf/httpd.conf)
-	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel emerg'
-	  | Set-Content c:/Apache/conf/httpd.conf;
+	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel emerg' | Set-Content c:/Apache/conf/httpd.conf;
 
 } else {
 	<# Development/Test settings #>
 
 	Copy-Item c:/php/php.ini c:/php/php.ini.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).ini;
 
-	(Get-Content c:/php/php.ini)
-	  -replace '^\s*;?\s*date.timezone\s*=.*', 'date.timezone = America/Los_Angeles'
-	  -replace '^\s*;?\s*error_log\s*=\s*.*', 'error_log = c:/Apache/logs/php_errors.log'
-	  -replace '^\s*;?\s*display_errors\s*=.*', 'display_errors = On'
-	  -replace '^\s*;?\s*display_startup_errors\s*=.*', 'display_startup_errors = On'
-	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On'
-	  -replace '^\s*;?\s*error_reporting\s*=\s*E_ALL & ~E_DEPRECATED & ~E_STRICT', 'error_reporting = E_ALL'
-	  | Set-Content c:/php/php.ini;
+	(Get-Content c:/php/php.ini) `
+	  -replace '^\s*;?\s*date.timezone\s*=.*', 'date.timezone = America/Los_Angeles' `
+	  -replace '^\s*;?\s*error_log\s*=\s*.*', 'error_log = c:/Apache/logs/php_errors.log' `
+	  -replace '^\s*;?\s*display_errors\s*=.*', 'display_errors = On' `
+	  -replace '^\s*;?\s*display_startup_errors\s*=.*', 'display_startup_errors = On' `
+	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On' `
+	  -replace '^\s*;?\s*error_reporting\s*=\s*E_ALL & ~E_DEPRECATED & ~E_STRICT', 'error_reporting = E_ALL' | Set-Content -Path c:/php/php.ini;
 
 	Copy-Item c:/Apache/conf/httpd.conf c:/Apache/conf/httpd.conf.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).conf;
 
-	(Get-Content c:/Apache/conf/httpd.conf)
-	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel debug'
-	  | Set-Content c:/Apache/conf/httpd.conf;
+	(Get-Content c:/Apache/conf/httpd.conf) `
+	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel debug' | Set-Content c:/Apache/conf/httpd.conf;
 }
 
 restart_httpd
