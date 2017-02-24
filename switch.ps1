@@ -62,7 +62,7 @@ if($prod){
 	  -replace '^display_startup_errors =.*', 'display_startup_errors = Off'
 	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On'
 	  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT'
-	  | Set-Content c:/php/php.ini
+	  | Set-Content c:/php/php.ini;
 
 } else {
 	<# Development/Test settings #>
@@ -76,7 +76,7 @@ if($prod){
 	  -replace '^\s*;?\s*display_startup_errors\s*=.*', 'display_startup_errors = On'
 	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On'
 	  -replace '^\s*;?\s*error_reporting\s*=\s*E_ALL & ~E_DEPRECATED & ~E_STRICT', 'error_reporting = E_ALL'
-	  | Set-Content c:/php/php.ini
+	  | Set-Content c:/php/php.ini;
 
 }
 
