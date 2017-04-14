@@ -1,10 +1,10 @@
 <#
 
 # usage: set for test:
-powershell.exe -executionpolicy bypass -noninteractive -noprofile -noninteractive -command "& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/TaylorMonacelli/rackmount-php-switch-prod-dev/master/switch.ps1')))"
+powershell.exe -executionpolicy bypass -noninteractive -noprofile -noninteractive -command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/TaylorMonacelli/rackmount-php-switch-prod-dev/master/switch.ps1')))"
 
 # usage: reset back to production:
-powershell.exe -executionpolicy bypass -noninteractive -noprofile -noninteractive -command "& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/TaylorMonacelli/rackmount-php-switch-prod-dev/master/switch.ps1'))) -prod"
+powershell.exe -executionpolicy bypass -noninteractive -noprofile -noninteractive -command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/TaylorMonacelli/rackmount-php-switch-prod-dev/master/switch.ps1'))) -prod"
 ./switch.ps1 -prod
 
 # testing
