@@ -55,17 +55,17 @@ if($prod){
 
 	Copy-Item c:/php/php.ini c:/php/php.ini.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).ini;
 
-	(Get-Content c:/php/php.ini)
-	  -replace '^date.timezone =.*', ';date.timezone ='
-	  -replace '^error_log =.*', ';error_log = php_errors.log'
-	  -replace '^display_errors =.*', 'display_errors = Off'
-	  -replace '^display_startup_errors =.*', 'display_startup_errors = Off'
-	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On'
+	(Get-Content c:/php/php.ini) `
+	  -replace '^date.timezone =.*', ';date.timezone =' `
+	  -replace '^error_log =.*', ';error_log = php_errors.log' `
+	  -replace '^display_errors =.*', 'display_errors = Off' `
+	  -replace '^display_startup_errors =.*', 'display_startup_errors = Off' `
+	  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On' `
 	  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT' | Set-Content c:/php/php.ini;
 
 	Copy-Item c:/Apache/conf/httpd.conf c:/Apache/conf/httpd.conf.$(Get-Date -f MM-dd-yyyy_HH_mm_ss).conf;
 
-	(Get-Content c:/Apache/conf/httpd.conf)
+	(Get-Content c:/Apache/conf/httpd.conf) `
 	  -replace '^\s*LogLevel\s*(debug|info|notice|warn|error|crit|alert|emerg)', 'LogLevel emerg' | Set-Content c:/Apache/conf/httpd.conf;
 
 } else {
