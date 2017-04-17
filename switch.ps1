@@ -58,7 +58,6 @@ if ($prod) {
     (Get-Content c:/php/php.ini) `
  -replace '^date.timezone =.*', ';date.timezone =' `
  -replace '^error_log =.*', ';error_log = php_errors.log' `
- -replace '^display_errors =.*', 'display_errors = Off' `
  -replace '^display_startup_errors =.*', 'display_startup_errors = Off' `
  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On' `
  -replace '^error_reporting = E_ALL', 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT' | Set-Content c:/php/php.ini;
@@ -77,7 +76,6 @@ else {
     (Get-Content c:/php/php.ini) `
  -replace '^\s*;?\s*date.timezone\s*=.*', 'date.timezone = America/Los_Angeles' `
  -replace '^\s*;?\s*error_log\s*=\s*.*', 'error_log = c:/Apache/logs/php_errors.log' `
- -replace '^\s*;?\s*display_errors\s*=.*', 'display_errors = On' `
  -replace '^\s*;?\s*display_startup_errors\s*=.*', 'display_startup_errors = On' `
  -replace '^\s*;?\s*log_errors\s*=.*', 'log_errors = On' `
  -replace '^\s*;?\s*error_reporting\s*=\s*E_ALL & ~E_DEPRECATED & ~E_STRICT', 'error_reporting = E_ALL' | Set-Content -Path c:/php/php.ini;
